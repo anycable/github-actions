@@ -47,6 +47,6 @@ jobs:
     - if: ${{ contains(github.ref, 'refs/tags/v') && steps.version.outputs.VERSION_TAG == inputs.latest_version }}
       env:
         VERSION_TAG: latest
-        VERSION_PREFIX: ""
+        VERSION_PREFIX: "/"
       run: |
         uptriever -d ${{inputs.path}} -k ${{secrets.api_key}} -s ${{secrets.dataset}}
