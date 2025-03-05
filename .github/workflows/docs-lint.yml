@@ -77,7 +77,7 @@ jobs:
       with:
         ruby-version: 3.1
     - name: Cache installed gems
-      uses: actions/cache@v1
+      uses: actions/cache@v4
       with:
         path: /home/runner/.rubies/ruby-2.7.0/lib/ruby/gems/2.7.0
         key: gems-cache-${{ runner.os }}
