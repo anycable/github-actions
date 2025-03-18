@@ -4,24 +4,24 @@ on:
   workflow_call:
 
 jobs:
-  push-1-4-stable:
-    if: ${{ contains(github.ref, 'refs/tags/v1.4.') }}
+  push-1-6-stable:
+    if: ${{ contains(github.ref, 'refs/tags/v1.6.') || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       with:
         persist-credentials: false
         fetch-depth: 0
     - uses: ad-m/github-push-action@v0.6.0
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: 1-4-stable
+        branch: 1-6-stable
         force: true
   push-1-5-stable:
-    if: ${{ contains(github.ref, 'refs/tags/v1.5.') || github.event_name == 'workflow_dispatch' }}
+    if: ${{ contains(github.ref, 'refs/tags/v1.5.') }}
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       with:
         persist-credentials: false
         fetch-depth: 0
