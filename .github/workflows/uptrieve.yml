@@ -22,31 +22,33 @@ jobs:
   uptrieve:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 3.3
-    - name: Install uptriever
-      run: |
-        gem install uptriever
-    - if: ${{ !contains(github.ref, 'refs/tags/v') }}
-      name: Index edge documents
-      run: |
-        uptriever -d ${{inputs.path}} -k ${{secrets.api_key}} -s ${{secrets.dataset}}
-    - if: ${{ contains(github.ref, 'refs/tags/v') }}
-      id: version
-      run: |
-        echo VERSION_TAG=$(echo ${GITHUB_REF#refs/tags/} | cut -d'.' -f1,2) >> $GITHUB_OUTPUT
-        echo VERSION_PREFIX=$(echo ${GITHUB_REF#refs/tags/} | awk -F. '{print $1 "-" $2}') >> $GITHUB_OUTPUT
-    - if: ${{ contains(github.ref, 'refs/tags/v') }}
-      env:
-        VERSION_TAG: ${{ steps.version.outputs.VERSION_TAG }}
-        VERSION_PREFIX: ${{ steps.version.outputs.VERSION_PREFIX }}
-      run: |
-        uptriever -d ${{inputs.path}} -k ${{secrets.api_key}} -s ${{secrets.dataset}}
-    - if: ${{ contains(github.ref, 'refs/tags/v') && steps.version.outputs.VERSION_TAG == inputs.latest_version }}
-      env:
-        VERSION_TAG: latest
-        VERSION_PREFIX: "/"
-      run: |
-        uptriever -d ${{inputs.path}} -k ${{secrets.api_key}} -s ${{secrets.dataset}}
+    - run: |
+        echo "Trieve search is no longer available, skip"
+    # - uses: actions/checkout@v4
+    # - uses: ruby/setup-ruby@v1
+    #   with:
+    #     ruby-version: 3.3
+    # - name: Install uptriever
+    #   run: |
+    #     gem install uptriever
+    # - if: ${{ !contains(github.ref, 'refs/tags/v') }}
+    #   name: Index edge documents
+    #   run: |
+    #     uptriever -d ${{inputs.path}} -k ${{secrets.api_key}} -s ${{secrets.dataset}}
+    # - if: ${{ contains(github.ref, 'refs/tags/v') }}
+    #   id: version
+    #   run: |
+    #     echo VERSION_TAG=$(echo ${GITHUB_REF#refs/tags/} | cut -d'.' -f1,2) >> $GITHUB_OUTPUT
+    #     echo VERSION_PREFIX=$(echo ${GITHUB_REF#refs/tags/} | awk -F. '{print $1 "-" $2}') >> $GITHUB_OUTPUT
+    # - if: ${{ contains(github.ref, 'refs/tags/v') }}
+    #   env:
+    #     VERSION_TAG: ${{ steps.version.outputs.VERSION_TAG }}
+    #     VERSION_PREFIX: ${{ steps.version.outputs.VERSION_PREFIX }}
+    #   run: |
+    #     uptriever -d ${{inputs.path}} -k ${{secrets.api_key}} -s ${{secrets.dataset}}
+    # - if: ${{ contains(github.ref, 'refs/tags/v') && steps.version.outputs.VERSION_TAG == inputs.latest_version }}
+    #   env:
+    #     VERSION_TAG: latest
+    #     VERSION_PREFIX: "/"
+    #   run: |
+    #     uptriever -d ${{inputs.path}} -k ${{secrets.api_key}} -s ${{secrets.dataset}}
