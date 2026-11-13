@@ -39,7 +39,7 @@ on:
 jobs:
   markdownlint:
     if: ${{ inputs.mdl }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v4
     - uses: ruby/setup-ruby@v1
@@ -52,7 +52,7 @@ jobs:
 
   rubocop:
     if: ${{ inputs.rubocop }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       BUNDLE_GEMFILE: ${{ inputs.rubocop-gemfile }}
     steps:
@@ -67,7 +67,7 @@ jobs:
 
   forspell:
     if: ${{ inputs.forspell }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v4
     - name: Install Hunspell
@@ -88,7 +88,7 @@ jobs:
 
   lychee:
     if: ${{ inputs.lychee }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v4
     - name: Link Checker
